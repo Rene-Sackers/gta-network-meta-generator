@@ -28,7 +28,8 @@ namespace MetaGenerator
 
         static void WatchDirectory(string path)
         {
-            if (!Directory.Exists(path)) {
+            if (!Directory.Exists(path))
+            {
                 WriteLogMessage("Invalid path: " + path);
                 return;
             }
