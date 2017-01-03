@@ -5,6 +5,7 @@
         CSharp,
         Compiled,
         JavaScript,
-        File
+        File,
+        Ignore
     }
 }

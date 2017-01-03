@@ -25,7 +25,12 @@ namespace MetaGenerator
         {
             new FileExtensionMapping(".cs", FileTypes.CSharp),
             new FileExtensionMapping(".dll", FileTypes.Compiled),
+            new FileExtensionMapping(".pdb", FileTypes.Ignore),
+            new FileExtensionMapping(".config", FileTypes.Ignore),
             new FileExtensionMapping(".js", FileTypes.JavaScript),
+            new FileExtensionMapping(".js.map", FileTypes.Ignore),
+            new FileExtensionMapping(".ts", FileTypes.Ignore),
+            new FileExtensionMapping(".scss", FileTypes.Ignore),
         };
 
         private FileExtensionMapping _defaultFileExtensionMapping = new FileExtensionMapping("*.*", FileTypes.File);
@@ -162,8 +167,10 @@ namespace MetaGenerator
                 case FileTypes.JavaScript: //<script src="freeroam_local.js" type="client" lang="javascript" />
                     return new XElement("script", new XAttribute("src", relativePath), new XAttribute("type", "client"), new XAttribute("lang", "javascript"));
                 case FileTypes.File: //<file src="skeletor.png" />
-                default:
                     return new XElement("file", new XAttribute("src", relativePath));
+                case FileTypes.Ignore:
+                default:
+                    return null;
             }
         }
 
@@ -186,7 +193,7 @@ namespace MetaGenerator
 
         private FileExtensionMapping GetFileMappingType(FileInfo file)
         {
-            var knwonFileExtensionMapping = _fileExtensionMappings.FirstOrDefault(fem => string.Equals(fem.Extension, file.Extension, StringComparison.OrdinalIgnoreCase));
+            var knwonFileExtensionMapping = _fileExtensionMappings.FirstOrDefault(fem => file.Name.ToLowerInvariant().EndsWith(fem.Extension.ToLowerInvariant()));
 
             return knwonFileExtensionMapping ?? _defaultFileExtensionMapping;
         }
