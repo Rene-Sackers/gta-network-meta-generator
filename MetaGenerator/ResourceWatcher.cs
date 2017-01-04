@@ -35,7 +35,7 @@ namespace MetaGenerator
 
         private FileExtensionMapping _defaultFileExtensionMapping = new FileExtensionMapping("*.*", FileTypes.File);
 
-        private string[] _generatedXmlTagNames = new[] { "script", "assembly", "file" };
+        private string[] _generatedXmlTagNames = new[] { "script", "file" };
 
         public ResourceWatcher(string path)
         {
